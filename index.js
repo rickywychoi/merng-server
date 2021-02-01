@@ -3,9 +3,6 @@ const { ApolloServer, PubSub } = require('apollo-server')
 const typeDefs = require('./graphql/typeDefs')
 const { resolvers } = require('./graphql/resolvers/index')
 
-const {
-  MONGODB_CONNECTION_STRING: defaultConnectionMongoDB
-} = require('./config')
 const mongoose = require('mongoose')
 
 const pubsub = new PubSub()
@@ -19,7 +16,7 @@ const server = new ApolloServer({
 })
 
 mongoose
-  .connect(defaultConnectionMongoDB, {
+  .connect(process.env.MONGODB_CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
